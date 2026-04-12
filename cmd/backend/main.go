@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -14,14 +15,14 @@ func main() {
 	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/v0/", proxyHandler)
-	mux.HandleFunc("/", http.FileServer(http.Dir("public")).ServeHTTP)
+	mux.HandleFunc("/", appHandler)
 	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
 
 func proxyHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		p := r.URL.Path
-		log.Printf("requesting %s", r.URL.Path)
+		log.Printf("proxy handler %s", r.URL.Path)
 		// this is actually a different API
 		// base := "https://hacker-news.firebaseio.com"
 		base := "https://api.hnpwa.com"
@@ -48,4 +49,19 @@ func proxyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Error(w, "not yet", http.StatusNotFound)
+}
+
+func appHandler(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path
+	log.Printf("app handler %s", r.URL.Path)
+	if strings.HasPrefix(path, "/assets/") ||
+		strings.HasSuffix(path, ".png") {
+		http.FileServer(http.Dir("public")).ServeHTTP(w, r)
+		return
+	}
+	b, err := os.ReadFile("public/index.html")
+	if err != nil {
+		log.Printf("%s", err)
+	}
+	w.Write(b)
 }
