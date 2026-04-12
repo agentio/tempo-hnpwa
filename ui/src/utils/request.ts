@@ -5,7 +5,7 @@ import { decodeItem, decodeUser, decodeFeed } from './decoders'
 import { Result } from './result'
 
 const RESET_CACHE_AFTER = 120000
-const base = 'https://api.hnpwa.com'
+const base = ''
 
 const makeUrl = (path: string[]) => {
   return `${base}/${path.join('/')}`
