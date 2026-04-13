@@ -1,4 +1,4 @@
-module github.com/agentio/tempo-bff
+module github.com/agentio/tempo-hnpwa
 
 go 1.26.2
 

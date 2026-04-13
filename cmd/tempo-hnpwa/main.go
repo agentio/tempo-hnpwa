@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/agentio/tempo-bff/internal/assets"
-	"github.com/agentio/tempo-bff/internal/page"
-	"github.com/agentio/tempo-bff/internal/proxy"
+	"github.com/agentio/tempo-hnpwa/internal/assets"
+	"github.com/agentio/tempo-hnpwa/internal/page"
+	"github.com/agentio/tempo-hnpwa/internal/proxy"
 )
 
 func main() {
@@ -16,6 +16,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+	log.Printf("serving on port %s", port)
 	log.Fatal(http.ListenAndServe(":"+port, &App{}))
 }
 
