@@ -4,5 +4,16 @@ import { tempo } from '@tempots/vite'
 
 export default defineConfig({
   base: '',
-  plugins: [tempo({ devtools: true })],
+  plugins: [tempo({
+    mode: "ssg",
+    devtools: true,
+   })],
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]'
+      }
+    }
+  }
 })
