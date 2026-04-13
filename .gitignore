@@ -1,3 +1,6 @@
+internal/assets/css
+internal/assets/img
+internal/assets/js
 ui/dist
 ui/node_modules
 ui/pnpm-lock.yaml
