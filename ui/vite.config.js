@@ -5,7 +5,7 @@ import { tempo } from '@tempots/vite'
 export default defineConfig({
   base: '',
   plugins: [tempo({
-    mode: "ssg",
+    mode: "spa",
     devtools: true,
    })],
   build: {
